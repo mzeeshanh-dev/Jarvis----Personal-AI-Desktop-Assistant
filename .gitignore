@@ -1,0 +1,19 @@
+node_modules/
+frontend/dist/
+frontend/dist-electron/
+build/
+dist-installer/
+backend/.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+tests/.work/
+test-results/
+playwright-report/
+*.log
+.env
+.env.*
+.groq
+client_secret*.json
+# Downloaded by `npm run setup` (backend/scripts/fetch_models.py)
+resources/models/

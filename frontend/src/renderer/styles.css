@@ -1,0 +1,74 @@
+@import "tailwindcss";
+
+@theme {
+  /* Palette sampled from the Jarvis HUD artwork: blue-black, cyan glow, HUD amber, suit red. */
+  --color-ink-950: #04070a;
+  --color-ink-900: #070c11;
+  --color-ink-850: #0a1118;
+  --color-ink-800: #0e1720;
+  --color-ink-750: #121e29;
+  --color-ink-700: #182633;
+  --color-ink-600: #223443;
+  --color-ink-500: #2e4456;
+  --color-fg: #e2f1f8;
+  --color-muted: #89a3b3;
+  --color-faint: #567082;
+  --color-accent: #4fd1f5;
+  --color-accent-strong: #1fb0de;
+  --color-accent-dim: #0f3a4d;
+  --color-warm: #f0a742;
+  --color-danger: #e5566b;
+  --font-sans: "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
+  --font-display: "Segoe UI Variable Display", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "Cascadia Code", "Cascadia Mono", Consolas, monospace;
+}
+
+@layer base {
+  html, body, #root { height: 100%; }
+  body {
+    margin: 0;
+    background: var(--color-ink-950);
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+    font-size: 14px;
+    -webkit-font-smoothing: antialiased;
+    user-select: none;
+    overflow: hidden;
+  }
+  body.float { background: transparent; }
+  ::selection { background: color-mix(in srgb, var(--color-accent) 35%, transparent); }
+  input, textarea, select, button { font: inherit; color: inherit; }
+  .selectable, .selectable * { user-select: text; }
+  *:focus-visible { outline: 2px solid color-mix(in srgb, var(--color-accent) 70%, transparent); outline-offset: 2px; border-radius: 6px; }
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-thumb { background: var(--color-ink-600); border-radius: 8px; border: 3px solid transparent; background-clip: padding-box; }
+  ::-webkit-scrollbar-thumb:hover { background-color: var(--color-ink-500); }
+  ::-webkit-scrollbar-track { background: transparent; }
+}
+
+.drag { -webkit-app-region: drag; }
+.no-drag { -webkit-app-region: no-drag; }
+
+@keyframes spin-slow { to { transform: rotate(360deg); } }
+@keyframes breathe { 0%, 100% { opacity: .55; } 50% { opacity: 1; } }
+@keyframes bar { 0%, 100% { transform: scaleY(.35); } 50% { transform: scaleY(1); } }
+.animate-spin-slow { animation: spin-slow 2.4s linear infinite; }
+.animate-breathe { animation: breathe 2.2s ease-in-out infinite; }
+.eq-bar { animation: bar .9s ease-in-out infinite; transform-origin: center; }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-spin-slow, .animate-breathe, .eq-bar { animation: none; }
+}
+
+.md p { margin: 0 0 .55em; }
+.md p:last-child { margin-bottom: 0; }
+.md ul, .md ol { margin: .2em 0 .6em; padding-left: 1.3em; }
+.md ul { list-style: disc; }
+.md ol { list-style: decimal; }
+.md li { margin: .15em 0; }
+.md code { font-family: var(--font-mono); font-size: .88em; background: var(--color-ink-700); padding: .08em .35em; border-radius: 5px; }
+.md pre { font-family: var(--font-mono); font-size: 12.5px; background: var(--color-ink-900); border: 1px solid var(--color-ink-700); padding: 10px 12px; border-radius: 10px; overflow-x: auto; margin: .4em 0 .7em; white-space: pre; }
+.md pre code { background: none; padding: 0; }
+.md a { color: var(--color-accent); text-decoration: underline; text-underline-offset: 2px; cursor: pointer; }
+.md h1, .md h2, .md h3 { font-weight: 600; margin: .6em 0 .3em; }
+.md strong { font-weight: 600; color: #f1f5f2; }

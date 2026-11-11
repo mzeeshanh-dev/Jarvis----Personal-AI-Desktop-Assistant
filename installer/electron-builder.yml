@@ -1,0 +1,52 @@
+# electron-builder configuration (paths relative to the project root).
+appId: com.escan.jarvis
+productName: Jarvis
+copyright: Copyright © 2026 eScan Systems
+directories:
+  output: dist-installer
+  buildResources: resources/icons
+files:
+  - frontend/dist/**
+  - frontend/dist-electron/**
+  - "!frontend/dist-electron/*.map"
+  - package.json
+extraResources:
+  - from: build/backend/jarvis-backend
+    to: backend
+  - from: resources/models
+    to: models
+  - from: resources/icons
+    to: icons
+asar: true
+npmRebuild: false
+electronDist: node_modules/electron/dist   # reuse the installed Electron (no second download)
+win:
+  icon: resources/icons/icon.ico
+  executableName: Jarvis
+  artifactName: Jarvis-Setup-${version}.${ext}
+  target:
+    - nsis
+nsis:
+  oneClick: false
+  perMachine: false            # per-user install: no administrator rights needed
+  allowElevation: true         # lets the user pick an all-users install if they want
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: Jarvis
+  deleteAppDataOnUninstall: false  # keep settings/history across upgrades and reinstalls
+  installerIcon: resources/icons/icon.ico
+  uninstallerIcon: resources/icons/icon.ico
+  runAfterFinish: true
+msi:
+  artifactName: Jarvis-${version}.${ext}
+  perMachine: false
+  oneClick: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: Jarvis
+  upgradeCode: 6f1c2b7e-3c55-4a8e-9a43-6a3c1f2e9d10   # constant: enables MSI major upgrades
+  # ICE validation needs the Windows Installer service with admin rights
+  # (LGHT1105 otherwise); it only lints the MSI, so skip it for non-admin builds.
+  additionalLightArgs:
+    - -sval
